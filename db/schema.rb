@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_10_12_134315) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "produtos", force: :cascade do |t|
     t.string "nome"
     t.text "definicao"
     t.integer "quantidade"
-    t.integer "tipo_produto_id"
+    t.bigint "tipo_produto_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tipo_produto_id"], name: "index_produtos_on_tipo_produto_id"
@@ -28,4 +31,5 @@ ActiveRecord::Schema.define(version: 2021_10_12_134315) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "produtos", "tipo_produtos"
 end
