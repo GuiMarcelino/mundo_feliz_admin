@@ -25,7 +25,7 @@
             <td><%= produto.nome %></td>
             <td><%= produto.definicao %></td>
             <td><%= produto.quantidade %></td>
-            <td><%= produto.tipo_produto %></td>
+            <td><%= produto.tipo_produto.nome %></td>
             <td><%= link_to 'Mostrar', produto %></td>
         <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
         <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Confirma?' } %></td>
