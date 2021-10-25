@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :clientes
   resources :produtos
   root to: 'home#index'
   resources :tipo_produtos

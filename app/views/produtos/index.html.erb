@@ -14,6 +14,7 @@
             <th>Definicao</th>
             <th>Quantidade</th>
             <th>Tipo produto</th>
+            <th>Valor</th>
             <th></th>
         <th></th>
         <th></th>
@@ -26,6 +27,7 @@
             <td><%= produto.definicao %></td>
             <td><%= produto.quantidade %></td>
             <td><%= produto.tipo_produto.nome %></td>
+            <td><%="R$ #{produto.valor}"%></td>
             <td><%= link_to 'Mostrar', produto %></td>
         <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
         <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Confirma?' } %></td>
