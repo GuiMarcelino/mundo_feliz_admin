@@ -1,9 +1,10 @@
 class PedidoProdutosController < ApplicationController
   before_action :set_pedido_produto, only: %i[ show edit update destroy ]
+  before_action :set_pedido
 
   # GET /pedido_produtos or /pedido_produtos.json
   def index
-    @pedido_produtos = PedidoProduto.all
+    @pedido_produtos = PedidoProduto.where(pedido_id: @pedido_id)
   end
 
   # GET /pedido_produtos/1 or /pedido_produtos/1.json
@@ -22,10 +23,12 @@ class PedidoProdutosController < ApplicationController
   # POST /pedido_produtos or /pedido_produtos.json
   def create
     @pedido_produto = PedidoProduto.new(pedido_produto_params)
+    @pedido_produto.pedido = @pedido
+
 
     respond_to do |format|
       if @pedido_produto.save
-        format.html { redirect_to @pedido_produto, notice: "Pedido produto was successfully created." }
+        format.html { redirect_to pedido_pedido_produtos_path(@pedido), notice: "Pedido produto was successfully created." }
         format.json { render :show, status: :created, location: @pedido_produto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,7 @@ class PedidoProdutosController < ApplicationController
   def update
     respond_to do |format|
       if @pedido_produto.update(pedido_produto_params)
-        format.html { redirect_to @pedido_produto, notice: "Pedido produto was successfully updated." }
+        format.html { redirect_to pedido_pedido_produtos_path(@pedido), notice: "Pedido produto was successfully updated." }
         format.json { render :show, status: :ok, location: @pedido_produto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,13 +54,17 @@ class PedidoProdutosController < ApplicationController
   def destroy
     @pedido_produto.destroy
     respond_to do |format|
-      format.html { redirect_to pedido_produtos_url, notice: "Pedido produto was successfully destroyed." }
+      format.html { redirect_to pedido_pedido_produtos_path(@pedido), notice: "Pedido produto was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_pedido
+      @pedido = Pedido.find(params[:pedido_id])
+    end
+
     def set_pedido_produto
       @pedido_produto = PedidoProduto.find(params[:id])
     end
